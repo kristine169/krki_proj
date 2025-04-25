@@ -7,17 +7,17 @@ This checklist follows the phases outlined in `plan.md`. Check items off as they
 ## Phase 0: Setup & Foundation
 
 -   **[P0-S1] Setup Project Structure:**
-    -   [ ] Create monorepo or separate project folders (`backend`, `frontend`, `browser-extension`).
-    -   [ ] Initialize Git repository.
-    -   [ ] Create basic `README.md` in root.
+    -   [+] Create monorepo or separate project folders (`backend`, `frontend`, `browser-extension`).
+    -   [+] Initialize Git repository.
+    -   [+] Create basic `README.md` in root.
 -   **[P0-S2] Install Core Dependencies:**
-    -   [ ] Ensure Node.js and TypeScript are installed.
-    -   [ ] Initialize `package.json` in `backend`, `frontend`, `browser-extension` folders.
-    -   [ ] Install base TypeScript dependencies (`typescript`, `@types/node`) in each project.
-    -   [ ] Setup `tsconfig.json` for each TS project (`backend`, `frontend`, `browser-extension`).
-    -   [ ] Verify `tsc` command runs successfully in each project folder.
+    -   [+] Ensure Node.js and TypeScript are installed.
+    -   [+] Initialize `package.json` in `backend`, `frontend`, `browser-extension` folders.
+    -   [+] Install base TypeScript dependencies (`typescript`, `@types/node`) in each project.
+    -   [+] Setup `tsconfig.json` for each TS project (`backend`, `frontend`, `browser-extension`).
+    -   [+] Verify `tsc` command runs successfully in each project folder.
 -   **[P0-S3] Integrate & Verify Core Logic (Backend):**
-    -   [ ] Copy `flashcards.ts` and `algorithms.ts` into the `backend` project structure.
+    -   [+] Copy `flashcards.ts` and `algorithms.ts` into the `backend` project structure.
     -   [ ] (Optional but Recommended) Setup a testing framework (e.g., Jest, Mocha) for the backend.
     -   [ ] Write basic unit tests for `practice()`, `update()`, `computeProgress()` in `algorithms.ts`.
     -   [ ] Ensure unit tests pass.
@@ -27,27 +27,27 @@ This checklist follows the phases outlined in `plan.md`. Check items off as they
 ## Phase 1: Backend API Implementation
 
 -   **[P1-S1] Basic Express Server Setup (Backend):**
-    -   [ ] Install `express` and `@types/express` in `backend`.
-    -   [ ] Create basic `server.ts` (or `index.ts`) that initializes Express and listens on a port.
+    -   [+] Install `express` and `@types/express` in `backend`.
+    -   [+] Create basic `server.ts` (or `index.ts`) that initializes Express and listens on a port.
     -   [ ] Add a simple test route (e.g., `/ping`) and verify it works via browser or `curl`.
     -   [ ] Setup `ts-node-dev` or `nodemon` for automatic server reloading during development.
 -   **[P1-S2] Implement In-Memory State (Backend):**
     -   [ ] Create a backend module/service to manage application state (`BucketMap`, `history`, `currentDay`) in memory.
 -   **[P1-S3] Implement Card API Endpoints (Backend):**
-    -   [ ] Implement `POST /api/cards` route handler (adds card, places in Bucket 0).
-    -   [ ] Implement `GET /api/cards` route handler (returns all cards).
-    -   [ ] Test `POST` and `GET /api/cards` using Postman/Insomnia/curl.
+    -   [+] Implement `POST /api/cards` route handler (adds card, places in Bucket 0).
+    -   [+] Implement `GET /api/cards` route handler (returns all cards).
+    -   [+] Test `POST` and `GET /api/cards` using Postman/Insomnia/curl.
 -   **[P1-S4] Implement Day API Endpoints (Backend):**
-    -   [ ] Implement `GET /api/day` route handler.
-    -   [ ] Implement `POST /api/day/advance` route handler.
-    -   [ ] Test `GET` and `POST /api/day/*` endpoints.
+    -   [+] Implement `GET /api/day` route handler.
+    -   [+] Implement `POST /api/day/advance` route handler.
+    -   [+] Test `GET` and `POST /api/day/*` endpoints.
 -   **[P1-S5] Implement Practice API Endpoints (Backend):**
-    -   [ ] Implement `GET /api/practice` route handler (uses `practice()`).
-    -   [ ] Implement `POST /api/practice/record` route handler (uses `update()`, adds to `history`).
-    -   [ ] Test practice sequence: `GET /api/practice` -> `POST /api/practice/record` -> verify state change.
+    -   [+] Implement `GET /api/practice` route handler (uses `practice()`).
+    -   [+] Implement `POST /api/practice/record` route handler (uses `update()`, adds to `history`).
+    -   [+] Test practice sequence: `GET /api/practice` -> `POST /api/practice/record` -> verify state change.
 -   **[P1-S6] Implement Stats API Endpoint (Backend):**
-    -   [ ] Implement `GET /api/stats` route handler (uses `computeProgress()`).
-    *   [ ] Test `GET /api/stats` after recording some practice events.
+    -   [+] Implement `GET /api/stats` route handler (uses `computeProgress()`).
+    *   [+] Test `GET /api/stats` after recording some practice events.
 -   **[P1-S7] Implement JSON File Persistence (Backend):**
     -   [ ] Define JSON file path/name (e.g., `data.json`).
     -   [ ] Implement logic to load state from JSON file on server startup (handle file not found).
