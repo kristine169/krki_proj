@@ -2,7 +2,9 @@ import { Flashcard, BucketMap, AnswerDifficulty } from "./logic/flashcards";
 import { PracticeRecord } from "./types";
 
 // --- Initial Data ---
-const initialCards: Flashcard[] = [];
+const initialCards: Flashcard[] = [
+  new Flashcard("ASAP", "As Soon As Possible", "abreviation", ["phrase", "english"]),
+];
 
 // --- State Variables ---
 // Initialize buckets: Put all initial cards in bucket 0
