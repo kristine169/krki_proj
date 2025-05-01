@@ -7,6 +7,8 @@ import {
   advanceDay,
   fetchHint,
 } from "../services/api";
+import GestureRecognition from "./GestureRecognition";
+
 
 const PracticeView = () => {
   const [practiceCards, setPracticeCards] = useState<Flashcard[]>([]);
@@ -19,6 +21,9 @@ const PracticeView = () => {
   const [hint, setHint] = useState<string | null>(null);
   const [loadingHint, setLoadingHint] = useState(false);
   const [hintError, setHintError] = useState<string | null>(null);
+  const [gestureEnabled, setGestureEnabled] = useState<boolean>(false);
+
+  const countdownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const showBackRef = useRef<boolean>(false);
   const currentCardIndexRef = useRef<number>(0);
@@ -27,6 +32,21 @@ const PracticeView = () => {
     showBackRef.current = showBack;
     currentCardIndexRef.current = currentCardIndex;
   }, [showBack, currentCardIndex]);
+
+  const mapGestureToDifficulty = (gesture: string): AnswerDifficulty | null => {
+    switch (gesture) {
+      case "Easy":
+        return AnswerDifficulty.Easy;
+      case "Medium":
+        return AnswerDifficulty.Medium;
+      case "Hard":
+        return AnswerDifficulty.Hard;
+      case "Wrong":
+        return AnswerDifficulty.Wrong;
+      default:
+        return null;
+    }
+  };
 
   const loadPracticeCards = async () => {
     setIsLoading(true);
@@ -77,6 +97,13 @@ const PracticeView = () => {
     } catch (err) {
       console.error("Failed to submit answer:", err);
       setError("Failed to save progress. Please try again.");
+    }
+  };
+
+  const handleGestureDetected = (gesture: string) => {
+    const difficulty = mapGestureToDifficulty(gesture);
+    if (difficulty) {
+      handleAnswer(difficulty);
     }
   };
 
@@ -134,6 +161,29 @@ const PracticeView = () => {
 
   return (
     <div className="practice-container">
+      <div id="camera">
+        <label className="card-counter">
+            <input
+              type="checkbox"
+              checked={gestureEnabled}
+              onChange={() => setGestureEnabled(!gestureEnabled)}
+            />
+            Enable Gesture Detection
+        </label>
+        {gestureEnabled && (
+          <GestureRecognition onGestureDetected={handleGestureDetected}/>
+        )}
+        <ul id="bucket-card">
+          <b>HAND GESTURE INSTRUCTIONS:</b>
+          <br /><br />
+          * try to adjust your hand in center *
+          <br /><br />
+          <li>👍 Submit Easy</li>
+          <li>✌️ Submit Medium</li>
+          <li>👎 Submit Hard</li>
+          <li>✊ Submit Wrong</li>
+        </ul>
+      </div>
       <Link to="/" className="home-return">home page</Link>
       <Link to="/progress" className="navigation">check progress</Link>
       <div className="day-counter">Day {day}</div>
