@@ -174,3 +174,4 @@ app.listen(PORT, () => {
   console.log(`Backend server running at http://localhost:${PORT}`);
   console.log(`Current Day: ${state.getCurrentDay()}`);
 });
+export  {app};
