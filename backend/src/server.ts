@@ -12,7 +12,6 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes (Each endpoint will be matched in frontend part)
-
 // Get cards to practice for the current day
 app.get("/api/practice", (req: Request, res: Response) => {
   try {
@@ -132,7 +131,6 @@ app.post("/api/day/next", (req: Request, res: Response) => {
     .status(200)
     .json({ message: `Advanced to day ${newDay}`, currentDay: newDay });
 });
-
 
 // Start Server
 app.listen(PORT, () => {

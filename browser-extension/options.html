@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flashcard Extension Options</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    label, input, button {
+      font-size: 1em;
+    }
+    input {
+      width: 300px;
+      margin-right: 10px;
+    }
+    #status {
+      margin-top: 10px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flashcard Extension Options</h1>
+  <label for="apiUrl">Backend API URL:</label>
+  <input type="text" id="apiUrl" placeholder="https://localhost:3000" />
+  <button id="saveBtn">Save</button>
+  <div id="status"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      chrome.storage.sync.get(['apiUrl'], (result) => {
+        if (result.apiUrl) {
+          document.getElementById('apiUrl').value = result.apiUrl;
+        }
+      });
+
+      document.getElementById('saveBtn').addEventListener('click', () => {
+        const apiUrl = document.getElementById('apiUrl').value;
+        chrome.storage.sync.set({ apiUrl }, () => {
+          const status = document.getElementById('status');
+          status.textContent = 'API URL saved.';
+          setTimeout(() => { status.textContent = ''; }, 2000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

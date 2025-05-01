@@ -6,7 +6,6 @@ const initialCards: Flashcard[] = [
   new Flashcard("TBH", "To Be Honest", "abreviation", ["phrase", "english"]),
   new Flashcard("IDK", "I Don't Know", "abreviation", ["phrase", "english"]),
   new Flashcard("JK", "Just Kidding", "abreviation", ["phrase", "english"])
-];
 
 // Initialize buckets: Put all initial cards in bucket 0
 let currentBuckets: BucketMap = new Map();
