@@ -1,18 +1,19 @@
 import { Flashcard, BucketMap, AnswerDifficulty } from "./logic/flashcards";
 import { PracticeRecord } from "./types";
 
-// --- Initial Data ---
-const initialCards: Flashcard[] = [];
+const initialCards: Flashcard[] = [
+  new Flashcard("ASAP", "As Soon As Possible", "abreviation", ["phrase", "english"]),
+  new Flashcard("TBH", "To Be Honest", "abreviation", ["phrase", "english"]),
+  new Flashcard("IDK", "I Don't Know", "abreviation", ["phrase", "english"]),
+  new Flashcard("JK", "Just Kidding", "abreviation", ["phrase", "english"])
+];
 
-// --- State Variables ---
 // Initialize buckets: Put all initial cards in bucket 0
 let currentBuckets: BucketMap = new Map();
 const initialCardSet = new Set(initialCards);
 currentBuckets.set(0, initialCardSet);
-
 // Initialize practice history
 let practiceHistory: PracticeRecord[] = [];
-
 // Current simulation day (can be incremented or managed)
 let currentDay: number = 0;
 
@@ -35,7 +36,7 @@ export const incrementDay = (): void => {
   currentDay++;
 };
 
-// Helper to find a card (assuming front/back are unique identifiers for now)
+// Helper to find a card
 export const findCard = (
   front: string,
   back: string
@@ -47,7 +48,6 @@ export const findCard = (
       }
     }
   }
-  // Check initial set too, in case it hasn't been placed yet (edge case)
   return initialCards.find(
     (card) => card.front === front && card.back === back
   );
@@ -60,7 +60,7 @@ export const findCardBucket = (cardToFind: Flashcard): number | undefined => {
       return bucketNum;
     }
   }
-  return undefined; // Should ideally always be found if state is consistent
+  return undefined;
 };
 
 console.log("Initial State Loaded:", currentBuckets);
