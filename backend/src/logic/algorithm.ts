@@ -79,9 +79,16 @@ let destinationBucket: number;
 if (difficulty === AnswerDifficulty.Wrong) {
 destinationBucket = 0;
 } else if (difficulty === AnswerDifficulty.Hard) {
-destinationBucket = foundInBucket;
-} else {
+    if (foundInBucket === 0) {
+        destinationBucket = 0;
+    }
+    else {
+        destinationBucket = foundInBucket - 1;
+    }
+} else if (difficulty === AnswerDifficulty.Easy) {
 destinationBucket = foundInBucket + 1;
+} else {
+    destinationBucket = foundInBucket; // If difficulty is medium, store in same bucket
 }
 
 if (!copiedBuckets.has(destinationBucket)) {
