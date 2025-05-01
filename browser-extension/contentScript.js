@@ -5,7 +5,7 @@
     return;
   }
 
-  const front = prompt("Enter the back side of the flashcard:", "");
+  const front = prompt("Enter the front side of the flashcard:", "");
   if (front === null) {
     return; // User cancelled
   }
