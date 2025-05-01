@@ -22,9 +22,6 @@ const PracticeView = () => {
   const [loadingHint, setLoadingHint] = useState(false);
   const [hintError, setHintError] = useState<string | null>(null);
   const [gestureEnabled, setGestureEnabled] = useState<boolean>(false);
-
-  const countdownTimerRef = useRef<NodeJS.Timeout | null>(null);
-
   const showBackRef = useRef<boolean>(false);
   const currentCardIndexRef = useRef<number>(0);
 
