@@ -99,7 +99,7 @@ const PracticeView = () => {
 
   const handleGestureDetected = (gesture: string) => {
     const difficulty = mapGestureToDifficulty(gesture);
-    if (difficulty) {
+    if (showBack && difficulty) {
       handleAnswer(difficulty);
     }
   };
