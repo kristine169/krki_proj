@@ -132,6 +132,43 @@ app.post("/api/day/next", (req: Request, res: Response) => {
     .json({ message: `Advanced to day ${newDay}`, currentDay: newDay });
 });
 
+// Add a new flashcard to bucket 0 from extension
+app.post("/api/cards", (req: Request, res: Response) => {
+  try {
+    const { front, back, hint, tags } = req.body;
+
+    if (typeof front !== "string" || front.trim() === "") {
+      res.status(400).json({ message: "Invalid or missing 'front' field" });
+      return;
+    }
+    if (typeof back !== "string" || back.trim() === "") {
+      res.status(400).json({ message: "Invalid or missing 'back' field" });
+      return;
+    }
+    // hint and tags are optional
+    const hintStr = typeof hint === "string" ? hint : "";
+    const tagsArr = Array.isArray(tags) ? tags.filter(t => typeof t === "string") : [];
+
+    // Create new Flashcard instance
+    const newCard = new Flashcard(front.trim(), back.trim(), hintStr.trim(), tagsArr);
+
+    // Get current buckets and add new card to bucket 0
+    const buckets = state.getBuckets();
+    const bucketZero = buckets.get(0) || new Set<Flashcard>();
+    bucketZero.add(newCard);
+    buckets.set(0, bucketZero);
+
+    // Update state
+    state.setBuckets(buckets);
+
+    console.log(`Added new flashcard to bucket 0: ${front} - ${back}`);
+    res.status(201).json({ message: "Flashcard added to bucket 0 successfully" });
+  } catch (error) {
+    console.error("Error adding flashcard:", error);
+    res.status(500).json({ message: "Error adding flashcard" });
+  }
+});
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`Backend server running at http://localhost:${PORT}`);
