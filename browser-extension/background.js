@@ -6,6 +6,16 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.get(['apiUrl'], (result) => {
+    if (!result.apiUrl) {
+      chrome.storage.sync.set({ apiUrl: "http://localhost:3000" }, () => {
+        console.log("Default API URL set to http://localhost:3000");
+      });
+    }
+  });
+});
+
 async function postCard(apiUrl, cardData) {
   try {
     const response = await fetch(`${apiUrl}/api/cards`, {
@@ -30,7 +40,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     chrome.storage.sync.get(['apiUrl'], async (result) => {
       const apiUrl = result.apiUrl;
       if (!apiUrl) {
-        alert("API URL is not set. Please set it in the extension options.");
+        console.error("API URL is not set. Please set it in the extension options.");
         return;
       }
       try {
@@ -44,13 +54,13 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         }
         const success = await postCard(apiUrl, cardData);
         if (success) {
-          alert("Flashcard added successfully!");
+          console.log("Flashcard added successfully!");
         } else {
-          alert("Failed to add flashcard. Check console for details.");
+          console.error("Failed to add flashcard. Check console for details.");
         }
       } catch (error) {
         console.error("Error executing content script:", error);
-        alert("Error occurred. Check console for details.");
+        console.error("Error occurred. Check console for details.");
       }
     });
   }
