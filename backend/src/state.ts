@@ -6,6 +6,7 @@ const initialCards: Flashcard[] = [
   new Flashcard("TBH", "To Be Honest", "abreviation", ["phrase", "english"]),
   new Flashcard("IDK", "I Don't Know", "abreviation", ["phrase", "english"]),
   new Flashcard("JK", "Just Kidding", "abreviation", ["phrase", "english"])
+];
 
 // Initialize buckets: Put all initial cards in bucket 0
 let currentBuckets: BucketMap = new Map();
@@ -16,7 +17,7 @@ let practiceHistory: PracticeRecord[] = [];
 // Current simulation day (can be incremented or managed)
 let currentDay: number = 0;
 
-// --- State Accessors and Mutators ---
+// State Accessors
 export const getBuckets = (): BucketMap => currentBuckets;
 
 export const setBuckets = (newBuckets: BucketMap): void => {
