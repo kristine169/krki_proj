@@ -1,12 +1,12 @@
 (async () => {
-  const front = window.getSelection().toString();
-  if (!front) {
+  const back = window.getSelection().toString();
+  if (!back) {
     alert("No text selected.");
     return;
   }
 
-  const back = prompt("Enter the back side of the flashcard:", "");
-  if (back === null) {
+  const front = prompt("Enter the back side of the flashcard:", "");
+  if (front === null) {
     return; // User cancelled
   }
 
